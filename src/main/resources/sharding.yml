@@ -2,14 +2,14 @@ dataSources:
   shardwallet1:
     jdbcUrl: jdbc:mysql://localhost:3306/shardwallet1
     username: root
-    password: password
+    password: deepak
     driverClassName: com.mysql.cj.jdbc.Driver
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
 
   shardwallet2:
     jdbcUrl: jdbc:mysql://localhost:3306/shardwallet2
     username: root
-    password: password
+    password: deepak
     driverClassName: com.mysql.cj.jdbc.Driver
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
 
@@ -42,3 +42,5 @@ rules:
     keyGenerators:
       snowflakestrategy:
         type: SNOWFLAKE
+
+# 43:47
