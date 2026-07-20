@@ -1,6 +1,4 @@
 package com.example.sharedsagawallet.entities;
-
-import groovy.transform.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
