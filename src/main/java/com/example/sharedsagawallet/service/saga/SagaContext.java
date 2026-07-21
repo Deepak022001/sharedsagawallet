@@ -1,9 +1,7 @@
 package com.example.sharedsagawallet.service.saga;
-
-import java.security.PublicKey;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-
 import lombok.Data;
 
 @Data
@@ -24,4 +22,22 @@ public class SagaContext {
     public Object get(String key){
         return data.get(key);
     }
+    public Long getLong(String key){
+        Object value=get(key);
+        if(value instanceof Number){
+            return ((Number)value).longValue();
+        }
+        return null;
+    }
+
+    public BigDecimal getBigDecimal(String key){
+        Object value = get(key);
+        if(value instanceof BigDecimal){
+            return (BigDecimal) value;
+        }
+        if(value instanceof Number){
+            return BigDecimal.valueOf(((Number)value).doubleValue());
+        }
+        return null;
+    }   
 }
