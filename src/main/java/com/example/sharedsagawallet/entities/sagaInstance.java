@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Table(name = "saga_instance")
-public class sagaInstance {
+public class SagaInstance {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
@@ -28,11 +28,11 @@ public class sagaInstance {
     @Column(name = "payload",nullable = false)
     private sagaStatus status=sagaStatus.STARTED;
 
+    @Column(name = "currentStep",nullable = false)
+    private String currentStep;
+
     @Type(JsonType.class)
     @Column(name = "context",columnDefinition =  "json")
     private String context;
-
-    @Column(name = "currentStep",nullable = false)
-    private String currentStep;
 
 }

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "saga_step")
-public class sagaStep {
+public class SagaStep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
