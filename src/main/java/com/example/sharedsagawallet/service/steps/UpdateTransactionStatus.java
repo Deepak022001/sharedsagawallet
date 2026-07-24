@@ -7,6 +7,7 @@ import com.example.sharedsagawallet.entities.enums.TransactionStatus;
 import com.example.sharedsagawallet.repository.TransactionRepository;
 import com.example.sharedsagawallet.service.saga.SagaContext;
 import com.example.sharedsagawallet.service.saga.SagaStep;
+import com.example.sharedsagawallet.service.steps.SagaStepFactory.SagaStepType;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +62,7 @@ public class UpdateTransactionStatus implements SagaStep{
 
     @Override
     public String getStepName() {
-        return "UpdateTransactionStatus";
+        return SagaStepType.UPDATE_TRANSACTION_STATUS_STEP.toString();
     }
 }
     

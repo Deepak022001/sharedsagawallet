@@ -1,6 +1,6 @@
 package com.example.sharedsagawallet.entities.enums;
 
-public enum sagaStatus {
+public enum SagaStatus {
     STARTED,
     RUNNING,
     COMPLETED,

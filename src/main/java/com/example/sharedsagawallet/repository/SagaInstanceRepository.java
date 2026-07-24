@@ -13,6 +13,5 @@ import com.example.sharedsagawallet.entities.user;
 
 public interface SagaInstanceRepository extends JpaRepository<SagaInstance,Long>{
 
-    SagaInstance 
-    
+
 }

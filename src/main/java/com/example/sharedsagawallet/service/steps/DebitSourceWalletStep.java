@@ -8,6 +8,7 @@ import com.example.sharedsagawallet.entities.Wallet;
 import com.example.sharedsagawallet.repository.WalletRepository;
 import com.example.sharedsagawallet.service.saga.SagaContext;
 import com.example.sharedsagawallet.service.saga.SagaStep;
+import com.example.sharedsagawallet.service.steps.SagaStepFactory.SagaStepType;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class DebitDestinationWalletStep implements SagaStep{
+public class DebitSourceWalletStep implements SagaStep{
     private final WalletRepository walletRepository;
     @Override
     @Transactional
@@ -58,7 +59,7 @@ public class DebitDestinationWalletStep implements SagaStep{
 
     @Override
     public String getStepName() {
-        return "null";
+        return SagaStepType.DEBIT_SOURCE_WALLET_STEP.toString();
     }
     
 }

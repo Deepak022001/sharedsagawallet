@@ -8,6 +8,7 @@ import com.example.sharedsagawallet.entities.Wallet;
 import com.example.sharedsagawallet.repository.WalletRepository;
 import com.example.sharedsagawallet.service.saga.SagaContext;
 import com.example.sharedsagawallet.service.saga.SagaStep;
+import com.example.sharedsagawallet.service.steps.SagaStepFactory.SagaStepType;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -71,7 +72,7 @@ public class CreditDestinationWalletStep implements SagaStep{
 
     @Override
     public String getStepName() {
-        throw new UnsupportedOperationException("Unimplemented method 'getStepName'");
+        return SagaStepType.CREDIT_DESTINATION_WALLET_STEP.toString();
     }
 
 

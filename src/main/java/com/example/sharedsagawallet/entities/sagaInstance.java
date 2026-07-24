@@ -2,7 +2,9 @@ package com.example.sharedsagawallet.entities;
 
 import org.apache.calcite.model.JsonType;
 
-import com.example.sharedsagawallet.entities.enums.sagaStatus;
+import com.example.sharedsagawallet.entities.enums.SagaStatus;
+
+
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 import jakarta.persistence.Column;
@@ -14,10 +16,11 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import lombok.Builder;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Data
 @Table(name = "saga_instance")
 public class SagaInstance {
@@ -26,9 +29,9 @@ public class SagaInstance {
     private Long id;
 
     @Column(name = "payload",nullable = false)
-    private sagaStatus status=sagaStatus.STARTED;
+    private SagaStatus status=SagaStatus.STARTED;
 
-    @Column(name = "currentStep",nullable = false)
+    @Column(name = "currentStep")
     private String currentStep;
 
     @Type(JsonType.class)
