@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 import org.hibernate.annotations.Collate;
 
-import com.example.sharedsagawallet.entities.enums.TransactionStatus;
-import com.example.sharedsagawallet.entities.enums.TransactionType;
+import com.example.sharedsagawallet.entities.enums.TransactionStatusEnum;
+import com.example.sharedsagawallet.entities.enums.TransactionTypeEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transaction {
+public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,11 +40,11 @@ public class Transaction {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "status",nullable = false)
-    private TransactionStatus status=TransactionStatus.PENDING;
+    private TransactionStatusEnum status=TransactionStatusEnum.PENDING;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_type",nullable = false)
-    private TransactionType type=TransactionType.TRANSFER;
+    private TransactionTypeEnum type=TransactionTypeEnum.TRANSFER;
 
     @Column(name = "saga_instance_id",nullable = false)
     private String description;

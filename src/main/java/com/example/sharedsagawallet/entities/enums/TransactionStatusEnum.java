@@ -1,6 +1,6 @@
 package com.example.sharedsagawallet.entities.enums;
 
-public enum TransactionStatus {
+public enum TransactionStatusEnum {
     PENDING,
     SUCCESS,
     FAILED,

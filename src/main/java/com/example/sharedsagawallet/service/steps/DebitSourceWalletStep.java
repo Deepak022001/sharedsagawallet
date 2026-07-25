@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Service;
 
-import com.example.sharedsagawallet.entities.Wallet;
+import com.example.sharedsagawallet.entities.WalletEntity;
 import com.example.sharedsagawallet.repository.WalletRepository;
 import com.example.sharedsagawallet.service.saga.SagaContext;
-import com.example.sharedsagawallet.service.saga.SagaStep;
+import com.example.sharedsagawallet.service.saga.SagaStepInterface;
 import com.example.sharedsagawallet.service.steps.SagaStepFactory.SagaStepType;
 
 import jakarta.transaction.Transactional;
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class DebitSourceWalletStep implements SagaStep{
+public class DebitSourceWalletStep implements SagaStepInterface{
     private final WalletRepository walletRepository;
     @Override
     @Transactional
@@ -24,7 +24,7 @@ public class DebitSourceWalletStep implements SagaStep{
         Long fromWalletId=context.getLong("fromWalletId");
         BigDecimal amount=context.getBigDecimal("amount");
         log.info("Debitting from source wallet {} with amount {}",fromWalletId,amount);
-        Wallet wallet=walletRepository.findByIdWithLock(fromWalletId).orElseThrow(()->new RuntimeException("wallet not found"));
+        WalletEntity wallet=walletRepository.findByIdWithLock(fromWalletId).orElseThrow(()->new RuntimeException("wallet not found"));
         log.info("Source wallet balance {} after debit",wallet.getBalance());
         context.put( "originalSourceWalletBalance",wallet.getBalance());
 
@@ -43,7 +43,7 @@ public class DebitSourceWalletStep implements SagaStep{
         Long fromWalletId=context.getLong("fromWalletId");
         BigDecimal amount=context.getBigDecimal("amount");
         log.info("compensating from source wallet {} with amount {}",fromWalletId,amount);
-        Wallet wallet=walletRepository.findByIdWithLock(fromWalletId)
+        WalletEntity wallet=walletRepository.findByIdWithLock(fromWalletId)
         .orElseThrow(()->new RuntimeException("wallet not found"));
 
         log.info("Wallet fetched with balance {} ",wallet.getBalance());

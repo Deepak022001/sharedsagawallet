@@ -1,7 +1,7 @@
 package com.example.sharedsagawallet.service;
 
 import com.example.sharedsagawallet.service.saga.SagaContext;
-import com.example.sharedsagawallet.entities.SagaInstance;
+import com.example.sharedsagawallet.entities.SagaInstanceEntity;
 public interface SagaOrchestrator {
     // Going to take Context object and it intiates a new sagainstance 
     Long startSaga(SagaContext context);
@@ -10,7 +10,7 @@ public interface SagaOrchestrator {
 
     boolean compensateStep(Long sagaInstanceId,String stepName);
 
-    SagaInstance getSagaInstance(Long sagaInstaceId);
+    SagaInstanceEntity getSagaInstance(Long sagaInstaceId);
 
     void compensateSaga(Long sagaInstanceId);
 

@@ -1,6 +1,6 @@
 package com.example.sharedsagawallet.entities.enums;
 
-public enum TransactionType {
+public enum TransactionTypeEnum {
     TRANSFER,
     DEPOIST,
     WITHDRAWL

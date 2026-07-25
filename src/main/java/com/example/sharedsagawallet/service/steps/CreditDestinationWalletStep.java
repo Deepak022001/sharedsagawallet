@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Service;
 
-import com.example.sharedsagawallet.entities.Wallet;
+import com.example.sharedsagawallet.entities.WalletEntity;
 import com.example.sharedsagawallet.repository.WalletRepository;
 import com.example.sharedsagawallet.service.saga.SagaContext;
-import com.example.sharedsagawallet.service.saga.SagaStep;
+import com.example.sharedsagawallet.service.saga.SagaStepInterface;
 import com.example.sharedsagawallet.service.steps.SagaStepFactory.SagaStepType;
 
 import jakarta.transaction.Transactional;
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class CreditDestinationWalletStep implements SagaStep{
+public class CreditDestinationWalletStep implements SagaStepInterface{
     private final WalletRepository walletRepository;
 
     @Override
@@ -30,7 +30,7 @@ public class CreditDestinationWalletStep implements SagaStep{
         log.info("Crediting destination wallet {} with amount {}", toWalletId, amount);
         
         // Step 2 .Fetch the destination wallet from the database with a lock 
-        Wallet wallet = walletRepository.findByIdWithLock(toWalletId)
+        WalletEntity wallet = walletRepository.findByIdWithLock(toWalletId)
         .orElseThrow(() -> new RuntimeException("Wallet not found"));
         log.info("Wallet fetched with balance {} ",wallet.getBalance());
         context.put("originalToWalletBalance",wallet.getBalance());
@@ -53,7 +53,7 @@ public class CreditDestinationWalletStep implements SagaStep{
 
         log.info("Compensating credit of destination wallet {} with amount {}",toWalletId,amount);
 // Step 2 .Fetch the destination wallet from the database with a lock 
-        Wallet wallet=walletRepository.findByIdWithLock(toWalletId)
+        WalletEntity wallet=walletRepository.findByIdWithLock(toWalletId)
         .orElseThrow(()->new RuntimeException("wallet not found"));
         log.info("Wallet fetched with balance {}", wallet.getBalance());
 

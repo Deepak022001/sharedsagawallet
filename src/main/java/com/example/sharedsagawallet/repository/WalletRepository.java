@@ -9,17 +9,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.example.sharedsagawallet.entities.Wallet;
+import com.example.sharedsagawallet.entities.WalletEntity;
 
 import jakarta.persistence.LockModeType;
 
 @Repository
-public interface WalletRepository extends JpaRepository<Wallet,Long>{
-    List<Wallet>findByUserId(Long userId);
+public interface WalletRepository extends JpaRepository<WalletEntity,Long>{
+    List<WalletEntity>findByUserId(Long userId);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT w FROM w WHERE w.id=:id")
-    Optional<Wallet> findByIdWithLock(@Param("id")Long id);
+    Optional<WalletEntity> findByIdWithLock(@Param("id")Long id);
 
 
 }

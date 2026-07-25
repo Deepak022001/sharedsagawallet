@@ -1,10 +1,11 @@
 package com.example.sharedsagawallet.entities.enums;
 
-public enum SagaStatus {
-    STARTED,
+public enum StepStatusEnum {
+    PENDING,
     RUNNING,
     COMPLETED,
     FAILED,
     COMPENSATING,
-    COMPNESATED
+    COMPENSATED,
+    SKIPPED
 }

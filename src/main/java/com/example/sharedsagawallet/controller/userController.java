@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import com.example.sharedsagawallet.entities.user;
+import com.example.sharedsagawallet.entities.userEntity;
 import com.example.sharedsagawallet.service.userService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,20 +23,20 @@ public class userController {
     private final userService userService;
 
     @PostMapping()
-    public ResponseEntity<user> createUser(@RequestBody user user){
-        user newUser= userService.creatUser(user);
+    public ResponseEntity<userEntity> createUser(@RequestBody userEntity user){
+        userEntity newUser= userService.creatUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<user> getUserById(@PathVariable Long id){
-        user foundUser=userService.getUserById(id);
+    public ResponseEntity<userEntity> getUserById(@PathVariable Long id){
+        userEntity foundUser=userService.getUserById(id);
         return ResponseEntity.ok(foundUser);
     }
     
     @GetMapping("/name")
-    public ResponseEntity<List<user>> getUserByName(@RequestParam String name){
-        List<user>allUsers= userService.getUsersByName(name);
+    public ResponseEntity<List<userEntity>> getUserByName(@RequestParam String name){
+        List<userEntity>allUsers= userService.getUsersByName(name);
         return ResponseEntity.ok(allUsers);
     }
 }

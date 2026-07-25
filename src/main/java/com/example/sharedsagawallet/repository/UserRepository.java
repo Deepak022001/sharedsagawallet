@@ -3,9 +3,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.example.sharedsagawallet.entities.user;
+import com.example.sharedsagawallet.entities.userEntity;
 
 @Repository
-public interface UserRepository extends JpaRepository<user,Long>{
-    List<user> findByNameContainingIgnoreCase(String name);        
+public interface UserRepository extends JpaRepository<userEntity,Long>{
+    List<userEntity> findByNameContainingIgnoreCase(String name);        
 }

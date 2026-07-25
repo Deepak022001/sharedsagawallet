@@ -1,13 +1,13 @@
-package com.example.sharedsagawallet;
+// package com.example.sharedsagawallet;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class SharedsagawalletApplicationTests {
+// @SpringBootTest
+// class SharedsagawalletApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }

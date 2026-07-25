@@ -1,5 +1,6 @@
 package com.example.sharedsagawallet.entities;
-import com.example.sharedsagawallet.entities.enums.StepStatus;
+import com.example.sharedsagawallet.entities.enums.StepStatusEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,13 +8,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
+import lombok.Builder;
 @Entity
 @AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@Builder
 @Table(name = "saga_step")
-public class SagaStep {
+public class SagaStepEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,7 +31,7 @@ public class SagaStep {
     private String stepName;
 
     @Column(name = "status",nullable = false)
-    private StepStatus status;
+    private StepStatusEnum status;
 
     @Column(name = "error_message",nullable = true)
     private String errorMessage;
