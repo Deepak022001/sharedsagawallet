@@ -23,24 +23,51 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Getter 
+@Getter
 @Setter
-@Data
 @Table(name = "saga_instance")
 public class SagaInstanceEntity {
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Builder.Default
-    @Column(name = "payload",nullable = false)
-    private SagaStatusEnum status=SagaStatusEnum.STARTED;
+    @Column(name = "status", nullable = false)
+    private SagaStatusEnum status = SagaStatusEnum.STARTED;
 
-    @Column(name = "currentStep")
+    @Column(name = "current_step")
     private String currentStep;
 
     @Type(JsonType.class)
-    @Column(name = "context",columnDefinition =  "json")
+    @Column(name = "context", columnDefinition = "json")
     private String context;
 
+    public void markAsStarted() {
+        this.status = SagaStatusEnum.STARTED;
+    }
+
+    public void markAsRunning() {
+        this.status = SagaStatusEnum.RUNNING;
+    }
+
+    public void markAsCompleted() {
+        this.status = SagaStatusEnum.COMPLETED;
+    }
+
+    public void markAsFailed() {
+        this.status = SagaStatusEnum.FAILED;
+    }
+
+    public void markAsCompensating() {
+        this.status = SagaStatusEnum.COMPENSATING;
+    }
+
+    public void markAsCompensated() {
+        this.status = SagaStatusEnum.COMPNESATED;
+    }
+
+    public void moveToStep(String stepName) {
+        this.currentStep = stepName;
+    }
 }

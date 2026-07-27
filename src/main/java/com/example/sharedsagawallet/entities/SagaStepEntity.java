@@ -38,4 +38,28 @@ public class SagaStepEntity {
 
     @Column(name = "stepData",columnDefinition = "json")
     private String stepData;
+
+    public void markAsPending() {
+    this.status = StepStatusEnum.PENDING;
+}
+
+public void markAsRunning() {
+    this.status = StepStatusEnum.RUNNING;
+}
+
+public void markAsCompleted() {
+    this.status = StepStatusEnum.COMPLETED;
+}
+
+public void markAsFailed() {
+    this.status = StepStatusEnum.FAILED;
+}
+
+public void markAsCompensating() {
+    this.status = StepStatusEnum.COMPENSATING;
+}
+
+public void markAsCompensated() {
+    this.status = StepStatusEnum.COMPENSATED;
+}
 }

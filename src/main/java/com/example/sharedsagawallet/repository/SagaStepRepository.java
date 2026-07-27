@@ -1,6 +1,7 @@
 package com.example.sharedsagawallet.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +15,8 @@ public interface SagaStepRepository extends JpaRepository<SagaStepEntity,Long>{
     List<SagaStepEntity> findBySagaInstanceId(Long sagaInstanceId);
 
     List<SagaStepEntity>findBySagaInstanceIdAndStatus(@Param("sagaInstanceId") Long sagaInstanceId,StepStatusEnum sagaStatusEnum);
+
+    Optional<SagaStepEntity>findBySagaInstanceIdAndStepNameAndStatus(Long sagaInstanceId,String stepName,StepStatusEnum status);
 
     @Query("SELECT s FROM SagaStep s WHERE s.sagaInstanceId = :sagaInstanceId AND s.status='COMPLETED'")
     List<SagaStepEntity>findCompletedStepsBySagaInstanceId(@Param("sagaInstanceId")Long sagaInstanceId);
