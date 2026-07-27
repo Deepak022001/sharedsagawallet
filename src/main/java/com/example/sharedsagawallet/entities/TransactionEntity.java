@@ -6,7 +6,6 @@ import org.hibernate.annotations.Collate;
 
 import com.example.sharedsagawallet.entities.enums.TransactionStatusEnum;
 import com.example.sharedsagawallet.entities.enums.TransactionTypeEnum;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,12 +17,13 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import lombok.Builder;
 @Entity
 @Table(name = "transaction")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
