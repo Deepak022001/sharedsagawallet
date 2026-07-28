@@ -1,17 +1,17 @@
 dataSources:
   shardwallet1:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
     jdbcUrl: jdbc:mysql://localhost:3306/shardwallet1
     username: root
     password: deepak
-    driverClassName: com.mysql.cj.jdbc.Driver
-    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
 
   shardwallet2:
+    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
     jdbcUrl: jdbc:mysql://localhost:3306/shardwallet2
     username: root
     password: deepak
-    driverClassName: com.mysql.cj.jdbc.Driver
-    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
 
 rules:
   - !SHARDING
@@ -23,15 +23,53 @@ rules:
     tables:
       user:
         actualDataNodes: shardwallet${1..2}.user
-
         databaseStrategy:
           standard:
             shardingColumn: id
             shardingAlgorithmName: db-inline
-
         keyGenerateStrategy:
           column: id
-          keyGeneratorName: snowflakestrategy
+          keyGeneratorName: snowflake
+
+      wallet:
+        actualDataNodes: shardwallet${1..2}.wallet
+        databaseStrategy:
+          standard:
+            shardingColumn: id
+            shardingAlgorithmName: db-inline
+        keyGenerateStrategy:
+          column: id
+          keyGeneratorName: snowflake
+
+      transaction:
+        actualDataNodes: shardwallet${1..2}.transaction
+        databaseStrategy:
+          standard:
+            shardingColumn: id
+            shardingAlgorithmName: db-inline
+        keyGenerateStrategy:
+          column: id
+          keyGeneratorName: snowflake
+
+      saga_instance:
+        actualDataNodes: shardwallet${1..2}.saga_instance
+        databaseStrategy:
+          standard:
+            shardingColumn: id
+            shardingAlgorithmName: db-inline
+        keyGenerateStrategy:
+          column: id
+          keyGeneratorName: snowflake
+
+      saga_step:
+        actualDataNodes: shardwallet${1..2}.saga_step
+        databaseStrategy:
+          standard:
+            shardingColumn: id
+            shardingAlgorithmName: db-inline
+        keyGenerateStrategy:
+          column: id
+          keyGeneratorName: snowflake
 
     shardingAlgorithms:
       db-inline:
@@ -40,7 +78,8 @@ rules:
           algorithm-expression: shardwallet${id % 2 + 1}
 
     keyGenerators:
-      snowflakestrategy:
+      snowflake:
         type: SNOWFLAKE
 
-# 43:47
+props:
+  sql-show: true

@@ -45,7 +45,7 @@ public class TransactionEntity {
     @Column(name = "transaction_type",nullable = false)
     private TransactionTypeEnum type=TransactionTypeEnum.TRANSFER;
 
-    @Column(name = "saga_instance_id",nullable = false)
+    @Column(name = "description",nullable = false)
     private String description;
 
     @Column(name = "saga_instance_id",nullable = false)

@@ -184,7 +184,7 @@ public class SagaOrchestratorImpl implements SagaOrchestrator{
         sagaInstanceRepository.save(sagaInstanceEntity);
 
         boolean allCompensated=true;
-        List<SagaStepEntity>completedSteps=sagaStepRepository.findCompletedStepsBySagaInstanceId(sagaInstanceId);
+        List<SagaStepEntity>completedSteps=sagaStepRepository.findCompletedOrCompensatedStepsBySagaInstanceId(sagaInstanceId);
         for(SagaStepEntity completedStep : completedSteps){
             boolean completed=this.compensateStep(sagaInstanceId, completedStep.getStepName());
             if(!completed){

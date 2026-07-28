@@ -18,7 +18,7 @@ public interface TransactionRepository extends JpaRepository<TransactionEntity,L
     // All the transaction for a wallet
     // Fetch all transactions related to a wallet, whether it sent
     // or received the money.
-    @Query("SELECT t FROM Transaction t WHERE t.fromWalletId=:walletId OR t.fromWalletId=:walletId")
+    @Query("SELECT t FROM TransactionEntity t WHERE t.fromWalletId=:walletId OR t.fromWalletId=:walletId")
     List<TransactionEntity>findByWalletId(@Param("walletId")Long walletId);
 
     List<TransactionEntity>findByStatus(TransactionStatusEnum status);

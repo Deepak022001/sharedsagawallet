@@ -19,9 +19,8 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/users")
-public class userController {
+public class UserController {
     private final userService userService;
-
     @PostMapping()
     public ResponseEntity<userEntity> createUser(@RequestBody userEntity user){
         userEntity newUser= userService.creatUser(user);

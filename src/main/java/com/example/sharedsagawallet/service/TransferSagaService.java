@@ -34,7 +34,7 @@ public class TransferSagaService {
         BigDecimal amount,
         String description
     ){
-        log.info("Initiating transfer from wallet {} to wallet {} with amount {} and description{}",fromWalletId,toWalletId,amount,descrption);
+        log.info("Initiating transfer from wallet {} to wallet {} with amount {} and description{}",fromWalletId,toWalletId,amount,description);
         // Create transaction
         TransactionEntity transactionEntity=transactionService
         .createTransaction(fromWalletId, toWalletId, amount, null);

@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.sharedsagawallet.entities.WalletEntity;
-import com.example.sharedsagawallet.entities.WalletEntity.WalletEntityBuilder;
 import com.example.sharedsagawallet.repository.WalletRepository;
 
 import jakarta.transaction.Transactional;
@@ -38,7 +37,7 @@ public class WalletService {
         return walletRepository.findByUserId(userId);
     }
     @Transactional
-    public void debit(Long walletId,BigDecimal amount){
+    public void debitWallet(Long walletId,BigDecimal amount){
         log.info("Debitting {} from wallet {}",amount,walletId);
         WalletEntity walletEntity=getWalletById(walletId);
         walletEntity.debit(amount);
