@@ -2,7 +2,6 @@ package com.example.sharedsagawallet.entities;
 
 import java.math.BigDecimal;
 
-import org.hibernate.annotations.Collate;
 
 import com.example.sharedsagawallet.entities.enums.TransactionStatusEnum;
 import com.example.sharedsagawallet.entities.enums.TransactionTypeEnum;

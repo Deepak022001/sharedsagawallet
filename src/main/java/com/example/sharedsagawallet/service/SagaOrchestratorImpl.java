@@ -28,18 +28,21 @@ public class SagaOrchestratorImpl implements SagaOrchestrator{
     private final SagaStepRepository sagaStepRepository;
     private final SagaStepFactory sagaStepFactory;
     @Override
+    // This sagacontext will come from the transactionsagaservice file 
+    // 
     public Long startSaga(SagaContext context) {
         try{
             // convert context(java object) to string
             String contextJson = objectMapper.writeValueAsString(context);
             SagaInstanceEntity sagaInstance = SagaInstanceEntity.builder()
             .context(contextJson)
-            .status(SagaStatusEnum.STARTED)//First Point where Saga started when we assigned context from Sagacontext to sagainstace
+            .status(SagaStatusEnum.STARTED)
+            //First Point where Saga started when we assigned 
+            // context from Sagacontext to sagainstaceentity
             .build();
-            
             // We saved the Sagainstance(consists In memory Object SagaContext)
             sagaInstance=sagaInstanceRepository.save(sagaInstance); 
-            log.info("Started saga with id{}",sagaInstance.getId());
+                log.info("Started saga with id{}",sagaInstance.getId());
             return sagaInstance.getId();
         }catch(Exception e){
             log.error("Error Starting saga", e);
@@ -161,6 +164,8 @@ public class SagaOrchestratorImpl implements SagaOrchestrator{
         .orElseThrow(()->new RuntimeException("Saga with instance id not found"));
         sagaInstanceEntity.markAsFailed();
         sagaInstanceRepository.save(sagaInstanceEntity);
+        compensateSaga(sagaInstanceId);
+        log.info("Saga {} failed",sagaInstanceId);
     }
     @Override
     public void completeSaga(Long sagaInstanceId) {

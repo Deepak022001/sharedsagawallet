@@ -44,4 +44,10 @@ public class TransactionService {
     public List<TransactionEntity>getTransactionByStatus(TransactionStatusEnum transactionStatus){
         return transactionRepository.findByStatus(transactionStatus);
     }
+    public void updateTransactionWithSagaInstaceId(Long transactionId,Long sagaInstanceId){
+        TransactionEntity transactionEntity=getTransactionById(sagaInstanceId);
+        transactionEntity.setSagaInstanceId(sagaInstanceId);
+        transactionRepository.save(transactionEntity);
+        log.info("Transaction updated with saga instance id{}",sagaInstanceId);
+    }
 }
