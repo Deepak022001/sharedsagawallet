@@ -28,10 +28,7 @@ public class DebitSourceWalletStep implements SagaStepInterface{
         log.info("Source wallet balance {} after debit",wallet.getBalance());
         context.put( "originalSourceWalletBalance",wallet.getBalance());
 
-
-        wallet.debit(amount);
-        walletRepository.save(wallet);
-
+        walletRepository.updateBalanceByUserId(fromWalletId, wallet.getBalance().subtract(amount));
          log.info("Wallet saved with balance{}",wallet.getBalance());
         context.put( "sourceWalletAfterDebit",wallet.getBalance());
 
@@ -48,11 +45,10 @@ public class DebitSourceWalletStep implements SagaStepInterface{
 
         log.info("Wallet fetched with balance {} ",wallet.getBalance());
         context.put("sourceWalletBeforeCompensation", wallet.getBalance());
-        wallet.credit(amount);
-        walletRepository.save(wallet);
 
-         log.info("Wallet saved with balance{}",wallet.getBalance());
-         context.put("sourceWalletAfterCompensation", wallet.getBalance());
+        walletRepository.updateBalanceByUserId(fromWalletId, wallet.getBalance().add(amount));
+        log.info("Wallet saved with balance{}",wallet.getBalance());
+        context.put("sourceWalletAfterCompensation", wallet.getBalance());
 
         return true;
     }

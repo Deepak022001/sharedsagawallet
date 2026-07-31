@@ -40,8 +40,8 @@ public class WalletController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<WalletEntity>getWalletById(@PathVariable Long id){
-        WalletEntity walletEntity=walletService.getWalletById(id);
+    public ResponseEntity<List<WalletEntity>>getWalletById(@PathVariable Long id){
+        List<WalletEntity> walletEntity=walletService.getWalletById(id);
         return ResponseEntity.ok(walletEntity);
     }
 
@@ -52,26 +52,26 @@ public class WalletController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<WalletEntity>> getWalletByUserId(@PathVariable Long userId) {
-        List<WalletEntity> wallets = walletService.getWalletByUserId(userId);
-        return ResponseEntity.ok(wallets);
+    public WalletEntity getWalletByUserId(@PathVariable Long userId) {
+        WalletEntity wallets = walletService.getWalletByUserId(userId);
+        return wallets;
     }
     
-    @PostMapping("/{id}/debit")
+    @PostMapping("/{userId}/debit")
         public ResponseEntity<WalletEntity> debitWallet(
-        @PathVariable Long id,
+        @PathVariable Long userId,
         @RequestBody DebitwalletRequestDto request) {
-    walletService.debitWallet(id, request.getAmount());
-    WalletEntity walletEntity=walletService.getWalletById(id);
+    walletService.debitWallet(userId, request.getAmount());
+    WalletEntity walletEntity=walletService.getWalletByUserId(userId);
     return ResponseEntity.ok(walletEntity);
 }
        
-    @PostMapping("/{id}/credit")
+    @PostMapping("/{userId}/credit")
         public ResponseEntity<WalletEntity> debitWallet(
-        @PathVariable Long id,
+        @PathVariable Long userId,
         @RequestBody CreditwalletRequestDto request) {
-    walletService.credit(id, request.getAmount());
-    WalletEntity walletEntity=walletService.getWalletById(id);
+    walletService.credit(userId, request.getAmount());
+    WalletEntity walletEntity=walletService.getWalletByUserId(userId);
     return ResponseEntity.ok(walletEntity);
     }
 

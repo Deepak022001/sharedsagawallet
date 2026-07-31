@@ -36,8 +36,7 @@ public class CreditDestinationWalletStep implements SagaStepInterface{
         context.put("originalToWalletBalance",wallet.getBalance());
         
         // Step 3 .Credit the destination wallet
-        wallet.credit(amount);
-        walletRepository.save(wallet);
+        walletRepository.updateBalanceByUserId(toWalletId, wallet.getBalance().add(amount));
         log.info("Wallet fetched with balance {} ",wallet.getBalance());
         context.put("updatedToWalletBalance",wallet.getBalance());
         
@@ -52,16 +51,14 @@ public class CreditDestinationWalletStep implements SagaStepInterface{
         BigDecimal amount=context.getBigDecimal("amount");
 
         log.info("Compensating credit of destination wallet {} with amount {}",toWalletId,amount);
-// Step 2 .Fetch the destination wallet from the database with a lock 
+        // Step 2 .Fetch the destination wallet from the database with a lock 
         WalletEntity wallet=walletRepository.findByIdWithLock(toWalletId)
         .orElseThrow(()->new RuntimeException("wallet not found"));
         log.info("Wallet fetched with balance {}", wallet.getBalance());
 
 
         // Step 3 .Debit the destination wallet
-        wallet.debit(amount);
-        walletRepository.save(wallet);
-
+        walletRepository.updateBalanceByUserId(toWalletId, wallet.getBalance().subtract(amount));
         log.info("Wallet saved with balance {}", wallet.getBalance());
         context.put("toWalletBalanceAfterCreditCompensation", wallet.getBalance());
 

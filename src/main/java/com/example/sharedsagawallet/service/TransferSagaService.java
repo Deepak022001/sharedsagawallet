@@ -1,7 +1,6 @@
 package com.example.sharedsagawallet.service;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import com.example.sharedsagawallet.service.steps.SagaStepFactory.SagaStepType;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.*;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 
 @Slf4j
@@ -33,11 +31,12 @@ public class TransferSagaService {
         Long toWalletId,
         BigDecimal amount,
         String description
-    ){
+        )
+    {
         log.info("Initiating transfer from wallet {} to wallet {} with amount {} and description{}",fromWalletId,toWalletId,amount,description);
         // Create transaction
         TransactionEntity transactionEntity=transactionService
-        .createTransaction(fromWalletId, toWalletId, amount, null);
+        .createTransaction(fromWalletId, toWalletId, amount, description);
         SagaContext sagaContext=SagaContext.builder()
         .data(
             Map.ofEntries(

@@ -1,9 +1,12 @@
 package com.example.sharedsagawallet.service;
 import java.math.BigDecimal;
 import java.util.List;
+
+import org.apache.shardingsphere.transaction.api.TransactionType;
 import org.springframework.stereotype.Service;
 import com.example.sharedsagawallet.entities.TransactionEntity;
 import com.example.sharedsagawallet.entities.enums.TransactionStatusEnum;
+import com.example.sharedsagawallet.entities.enums.TransactionTypeEnum;
 import com.example.sharedsagawallet.repository.TransactionRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +23,9 @@ public class TransactionService {
         .builder()
         .fromWalletId(fromWalletId)
         .toWalletId(toWalletId).amount(amount)
+        .status(TransactionStatusEnum.PENDING)
         .description(description)
+        .type(TransactionTypeEnum.TRANSFER)
         .build();
         TransactionEntity savedTransaction=transactionRepository.save(transactionEntity);
         log.info("Transaction created with id{}", savedTransaction);
@@ -45,7 +50,7 @@ public class TransactionService {
         return transactionRepository.findByStatus(transactionStatus);
     }
     public void updateTransactionWithSagaInstaceId(Long transactionId,Long sagaInstanceId){
-        TransactionEntity transactionEntity=getTransactionById(sagaInstanceId);
+        TransactionEntity transactionEntity=getTransactionById(transactionId);
         transactionEntity.setSagaInstanceId(sagaInstanceId);
         transactionRepository.save(transactionEntity);
         log.info("Transaction updated with saga instance id{}",sagaInstanceId);

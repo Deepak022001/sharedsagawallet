@@ -27,32 +27,34 @@ public class WalletService {
         .build();  
         walletEntity=walletRepository.save(walletEntity);
         return walletEntity;
+ 
     }
-    public WalletEntity getWalletById(Long walletId){
+    public WalletEntity getWalletByUserId(Long userId){
+        return walletRepository.findByUserId(userId).get(0);
+    }
+    
+    public List<WalletEntity> getWalletById(Long id){
         return walletRepository
-        .findById(walletId)
-        .orElseThrow(()->new RuntimeException("Wallet Not found"));
+        .findByUserId(id);
     }
-    public List<WalletEntity> getWalletByUserId(Long userId){
-        return walletRepository.findByUserId(userId);
+
+    @Transactional
+    public void debitWallet(Long userId,BigDecimal amount){
+        log.info("Debitting {} from wallet {}",amount,userId);
+        WalletEntity walletEntity=getWalletByUserId(userId);
+        BigDecimal newBalance=walletEntity.getBalance().subtract(amount);
+        walletRepository.updateBalanceByUserId(userId, newBalance);
+        log.info("Debit successful for wallet {}",  userId);
     }
     @Transactional
-    public void debitWallet(Long walletId,BigDecimal amount){
-        log.info("Debitting {} from wallet {}",amount,walletId);
-        WalletEntity walletEntity=getWalletById(walletId);
-        walletEntity.debit(amount);
-        walletRepository.save(walletEntity);
-        log.info("Debit successful for wallet {}",  walletId);
-    }
-    @Transactional
-    public void credit(Long walletId,BigDecimal amount){
-        log.info("Crediting {} to wallet{}",amount ,walletId);
-        WalletEntity walletEntity=getWalletById(walletId);
-        walletEntity.credit(amount);
-        walletRepository.save(walletEntity);
-        log.info("Credit successful for wallet {}", walletId);
+    public void credit(Long userId,BigDecimal amount){
+        log.info("Crediting {} to wallet{}",amount ,userId);
+        WalletEntity walletEntity=getWalletByUserId(userId);
+        walletEntity.setBalance(walletEntity.getBalance().add(amount));
+        walletRepository.updateBalanceByUserId(userId, walletEntity.getBalance());
+        log.info("Credit successful for wallet {}", userId);
     }
     public BigDecimal getWalletBalance(Long walletId){
-        return getWalletById(walletId).getBalance();
+        return getWalletByUserId(walletId).getBalance();
     }
 }

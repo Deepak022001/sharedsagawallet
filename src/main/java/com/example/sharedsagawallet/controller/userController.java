@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/users")
-public class UserController {
+public class userController {
     private final userService userService;
     @PostMapping()
     public ResponseEntity<userEntity> createUser(@RequestBody userEntity user){
@@ -39,3 +39,6 @@ public class UserController {
         return ResponseEntity.ok(allUsers);
     }
 }
+
+
+// 37:00

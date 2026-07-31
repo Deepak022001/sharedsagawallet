@@ -38,16 +38,16 @@ public class TransactionEntity {
     private BigDecimal amount;
     
     @Enumerated(EnumType.STRING)
-    @Column(name = "status",nullable = false)
+    @Column(name = "status")
     private TransactionStatusEnum status=TransactionStatusEnum.PENDING;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "transaction_type",nullable = false)
+    @Column(name = "transaction_type")
     private TransactionTypeEnum type=TransactionTypeEnum.TRANSFER;
 
-    @Column(name = "description",nullable = false)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "saga_instance_id",nullable = false)
+    @Column(name = "saga_instance_id")
     private Long sagaInstanceId;
 }
